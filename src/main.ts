@@ -1,6 +1,6 @@
 import { app, BrowserWindow } from "electron";
 
-let win: Electron.BrowserWindow;
+let win: BrowserWindow;
 
 const createWindow = () => {
   win = new BrowserWindow({
@@ -14,8 +14,6 @@ const createWindow = () => {
   });
 
   win.loadURL("http://google.com.br");
-
-  win.webContents.openDevTools();
 
   win.on("closed", () => {
     win = null;
