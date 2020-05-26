@@ -1,35 +1,12 @@
-import { app, BrowserWindow } from "electron";
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-let win: BrowserWindow;
+import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
 
-const createWindow = () => {
-  win = new BrowserWindow({
-    alwaysOnTop: true,
-    height: 600,
-    titleBarStyle: "hidden",
-    webPreferences: {
-      nodeIntegration: true,
-    },
-    width: 800,
-  });
+if (environment.production) {
+  enableProdMode();
+}
 
-  win.loadURL("http://google.com.br");
-
-  win.on("closed", () => {
-    win = null;
-  });
-};
-
-app.on("ready", createWindow);
-
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
-});
-
-app.on("activate", () => {
-  if (win === null) {
-    createWindow();
-  }
-});
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.error(err));
